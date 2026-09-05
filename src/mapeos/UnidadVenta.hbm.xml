@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.UnidadVenta" table="unidadVenta">
+    	<!-- ID -->
+        <id name="idUnidadVenta" column="idUnidadVenta">
+            <generator class="identity"/>
+        </id>
+		<!-- Atributos - Columnas -->
+        <property name="nombre" column="nombre" type="string" not-null="true"/>
+        <property name="lugar" column="lugar" type="string" not-null="true"/>
+        <property name="superficie" column="superficie" type="long" not-null="true"/>
+        <property name="codigo" column="codigo" type="string" length="15" unique="true" not-null="true"/>
+        <many-to-one name="festival" class="datos.Festival" column="idFestival" not-null="true"/>
+
+        
+
+        <!-- Uno a Muchos: una UnidadVenta tiene muchos Staff asignados -->
+        <set name="staff" table="staff" inverse="false" lazy="true" fetch="select">
+            <key column="idUnidadVenta"/>
+            <one-to-many class="datos.Staff"/>
+        </set>
+
+        <!-- Uno a Muchos: una UnidadVenta tiene muchos Platos propios -->
+        <set name="platos" table="plato" inverse="false" lazy="true" fetch="select">
+            <key column="idUnidadVenta"/>
+            <one-to-many class="datos.Plato"/>
+        </set>
+
+        <!-- Herencia: tabla por subclase -->
+        <joined-subclass name="datos.FoodTrack" table="foodTrack">
+            <key column="idUnidadVenta"/>
+            <property name="patente" column="patente" type="string" not-null="true"/>
+        </joined-subclass>
+
+        <joined-subclass name="datos.Desarmable" table="desarmable">
+            <key column="idUnidadVenta"/>
+            <property name="cantCarpas" column="cantCarpas" type="int" not-null="true"/>
+            <property name="tiempoArmado" column="tiempoArmado" type="int" not-null="true"/>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>

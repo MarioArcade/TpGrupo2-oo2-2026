@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.Plato" table="plato">
+    	<!-- ID -->
+        <id name="idPlato" column="idPlato">
+            <generator class="identity"/>
+        </id>
+		<!-- Atributos - Columnas -->
+        <property name="nombre" column="nombre" type="string" not-null="true"/>
+        <property name="precio" column="precio" type="long" not-null="true"/>
+        <property name="costoProd" column="costoProd" type="long" not-null="true"/>
+
+        <!-- Uno a Muchos: un Plato aparece en muchos DetallePedido (resuelve la M:N Plato-Pedido) -->
+        <set name="detalles" table="detallePedido" inverse="true" lazy="true" fetch="select">
+            <key column="idPlato"/>
+            <one-to-many class="datos.DetallePedido"/>
+        </set>
+        <many-to-one name="unidadVenta" class="datos.UnidadVenta" column="idUnidadVenta"
+not-null="true"/>
+    </class>
+</hibernate-mapping>

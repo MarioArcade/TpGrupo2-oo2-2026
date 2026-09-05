@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.Staff" table="staff">
+    	<!-- ID -->
+        <id name="idStaff" column="idStaff">
+            <generator class="identity"/>
+        </id>
+		<!-- Atributos - Columnas -->
+        <property name="nombre" column="nombre" type="string" not-null="true"/>
+        <property name="apellido" column="apellido" type="string" not-null="true"/>
+        <property name="dni" column="dni" type="string" unique="true" not-null="true"/>
+        <property name="edad" column="edad" type="int" not-null="true"/>
+        <property name="fechaNacimiento" column="fechaNacimiento" type="java.time.LocalDate" not-null="true"/>
+        <property name="fechaIngreso" column="fechaIngreso" type="java.time.LocalDate" not-null="true"/>
+        <property name="sueldoBase" column="sueldoBase" type="long" not-null="true"/>
+
+        <!-- Herencia: tabla por subclase -->
+        <joined-subclass name="datos.Cocinero" table="cocinero">
+            <key column="idStaff"/>
+            <property name="especialidad" column="especialidad" type="string" not-null="true"/>
+            <property name="certificado" column="certificado" type="string" not-null="false"/>
+            <property name="bonus" column="bonus" type="int" not-null="false"/>
+        </joined-subclass>
+
+        <joined-subclass name="datos.Cajero" table="cajero">
+            <key column="idStaff"/>
+            <property name="turno" column="turno" type="string" not-null="true"/>
+            <property name="numeroCaja" column="numeroCaja" type="int" not-null="true"/>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>

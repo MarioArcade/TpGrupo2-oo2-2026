@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.DetallePedido" table="detallePedido">
+    	<!-- ID -->
+        <id name="idDetallePedido" column="idDetallePedido">
+            <generator class="identity"/>
+        </id>
+		<!-- Atributos - Columnas -->
+        <property name="cantPlato" column="cantPlato" type="int" not-null="true"/>
+
+        <!-- Resuelve la relacion Muchos a Muchos entre Pedido y Plato -->
+        <many-to-one name="pedido" class="datos.Pedido" column="idPedido" not-null="true"/>
+        <many-to-one name="plato" class="datos.Plato" column="idPlato" not-null="true"/>
+    </class>
+</hibernate-mapping>

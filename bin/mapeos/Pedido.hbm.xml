@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.Pedido" table="pedido">
+    	<!-- ID -->
+        <id name="idPedido" column="idPedido">
+            <generator class="identity"/>
+        </id>
+		<!-- Atributos - Columnas -->
+        <property name="fechaTransaccion" column="fechaTransaccion" type="java.time.LocalDate" not-null="true"/>
+
+        <many-to-one name="unidadVentaEntrega" class="datos.UnidadVenta" column="idUnidadVentaEntrega" not-null="true"/>
+        <many-to-one name="festivalPaso" class="datos.Festival" column="idFestivalPaso" not-null="true"/>
+
+        <!-- Uno a Muchos: un Pedido tiene muchos DetallePedido (resuelve la M:N Plato-Pedido) -->
+        <set name="detalles" table="detallePedido" inverse="true" lazy="true" fetch="select">
+            <key column="idPedido"/>
+            <one-to-many class="datos.DetallePedido"/>
+        </set>
+    </class>
+</hibernate-mapping>
