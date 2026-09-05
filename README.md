@@ -22,3 +22,4 @@ Sistema para el centro de convenciones "Epicentro Gourmet": gestión de festival
 | 01/09/2026 | Staff (Cocinero/Cajero) de una UnidadVenta puntual con edad mínima por parámetro (Herencia + Uno a Muchos) | Juan Domenighetti |
 | 01/09/2026 | Traer cajeros de un turno determinado por parámetro (Herencia) | Nahuel Portel |
 | 01/09/2026 | Recaudación total de Food Trucks por rango de fechas (HQL + Lógica de Negocio) | Chaves Richart |
+| 02/09/2026 | Calcular edad, generar codigo, traer platos del festival, traer lista foodTrack del festival, traer lista Desarmables del festival, Traer por patente y festival (herencia) | Mariano Augusto Ribe |
